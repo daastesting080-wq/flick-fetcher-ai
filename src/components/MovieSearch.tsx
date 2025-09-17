@@ -80,7 +80,7 @@ export const MovieSearch = () => {
   };
 
   const getVidsrcUrl = (movieId: number) => {
-    return `https://vidsrc.xyz/embed/movie/${movieId}`;
+    return `https://vidsrc.xyz/embed/movie?tmdb=${movieId}`;
   };
 
   const playMovie = () => {
