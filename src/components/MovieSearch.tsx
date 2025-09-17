@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Star, Calendar, Clock } from "lucide-react";
+import { Search, Star, Calendar, Clock, Play, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Movie {
@@ -12,6 +12,7 @@ interface Movie {
   release_date: string;
   vote_average: number;
   runtime?: number;
+  imdb_id?: string;
 }
 
 const TMDB_API_KEY = "8265bd1679663a7ea12ac168da84d2e8"; // Public API key for demo
@@ -23,6 +24,7 @@ export const MovieSearch = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [showVideoPlayer, setShowVideoPlayer] = useState(false);
   const { toast } = useToast();
 
   const searchMovies = async (searchQuery: string) => {
@@ -74,6 +76,16 @@ export const MovieSearch = () => {
         description: "Failed to load movie details.",
         variant: "destructive",
       });
+    }
+  };
+
+  const getVidsrcUrl = (movieId: number) => {
+    return `https://vidsrc.xyz/embed/movie/${movieId}`;
+  };
+
+  const playMovie = () => {
+    if (selectedMovie) {
+      setShowVideoPlayer(true);
     }
   };
 
@@ -239,14 +251,103 @@ export const MovieSearch = () => {
                   </div>
 
                   <div className="flex gap-4">
-                    <Button className="cinema-gradient text-primary-foreground hover:opacity-90">
-                      Watch Trailer
+                    <Button 
+                      className="cinema-gradient text-primary-foreground hover:opacity-90"
+                      onClick={playMovie}
+                    >
+                      <Play className="w-4 h-4 mr-2" />
+                      Watch Now
                     </Button>
                     <Button variant="outline">
                       Add to Watchlist
                     </Button>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Video Player Modal */}
+      {showVideoPlayer && selectedMovie && (
+        <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-card rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden animate-slide-up">
+            <div className="relative">
+              {/* Close Button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="absolute top-4 right-4 z-10 bg-background/80 backdrop-blur-sm"
+                onClick={() => setShowVideoPlayer(false)}
+              >
+                ✕
+              </Button>
+
+              {/* Video Header */}
+              <div className="p-6 border-b border-border">
+                <h2 className="text-2xl font-bold mb-2">
+                  {selectedMovie.title}
+                </h2>
+                <p className="text-muted-foreground">
+                  Powered by VidSrc • Multiple streaming sources available
+                </p>
+              </div>
+
+              {/* Video Player */}
+              <div className="aspect-video bg-black">
+                <iframe
+                  src={getVidsrcUrl(selectedMovie.id)}
+                  className="w-full h-full"
+                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  title={`Watch ${selectedMovie.title}`}
+                />
+              </div>
+
+              {/* Video Footer */}
+              <div className="p-6 border-t border-border">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    {selectedMovie.vote_average > 0 && (
+                      <div className="flex items-center gap-2">
+                        <Star className="w-4 h-4 fill-rating-gold text-rating-gold" />
+                        <span className="font-medium">{selectedMovie.vote_average.toFixed(1)}/10</span>
+                      </div>
+                    )}
+                    
+                    {selectedMovie.release_date && (
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-muted-foreground" />
+                        <span>{new Date(selectedMovie.release_date).getFullYear()}</span>
+                      </div>
+                    )}
+                    
+                    {selectedMovie.runtime && (
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-muted-foreground" />
+                        <span>{selectedMovie.runtime} min</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => window.open(getVidsrcUrl(selectedMovie.id), '_blank')}
+                  >
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    Open in New Tab
+                  </Button>
+                </div>
+
+                {selectedMovie.overview && (
+                  <div className="mt-4">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {selectedMovie.overview}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
