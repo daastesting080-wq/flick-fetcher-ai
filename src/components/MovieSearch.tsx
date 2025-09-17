@@ -79,8 +79,23 @@ export const MovieSearch = () => {
     }
   };
 
-  const getVidsrcUrl = (movieId: number) => {
-    return `https://vidsrc.xyz/embed/movie?tmdb=${movieId}`;
+  const getVidsrcUrl = (movieId: number, options?: { autoplay?: boolean; ds_lang?: string; sub_url?: string }) => {
+    const baseUrl = `https://vidsrc.xyz/embed/movie?tmdb=${movieId}`;
+    const params = new URLSearchParams();
+
+    if (options?.autoplay !== undefined) {
+      params.append('autoplay', options.autoplay ? '1' : '0');
+    }
+
+    if (options?.ds_lang) {
+      params.append('ds_lang', options.ds_lang);
+    }
+
+    if (options?.sub_url) {
+      params.append('sub_url', encodeURIComponent(options.sub_url));
+    }
+
+    return `${baseUrl}&${params.toString()}`;
   };
 
   const playMovie = () => {
@@ -297,7 +312,7 @@ export const MovieSearch = () => {
               {/* Video Player */}
               <div className="aspect-video bg-black">
                 <iframe
-                  src={getVidsrcUrl(selectedMovie.id)}
+                  src={getVidsrcUrl(selectedMovie.id, { autoplay: true, ds_lang: 'en' })}
                   className="w-full h-full"
                   allowFullScreen
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
