@@ -3,5 +3,23 @@ apiVersion: app/v1
 kind: Deployment
 metadata: 
   name: cinesearch
-  
-
+  lables:
+    app: cinesearch
+  name: cinesearch
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+    app: cinesearch
+  templates:
+    metadata:
+      lables:
+        app: cinesearch
+        
+    spec:
+      containers:
+      - image: newdockeruser123/cinesearch:1.0.1
+        imagePullPolicy: IfNotPresent
+        name: cinesearch
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
