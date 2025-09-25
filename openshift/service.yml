@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cinesearch-service
+  labels: 
+    app: cinesearch
+  
+spec: 
+  selector: 
+    app: cinesearch
+  ports:
+    port: 3000
+    targetPort: 80
+  type: NodePort
+    
