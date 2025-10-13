@@ -36,6 +36,37 @@ npm i
 npm run dev
 ```
 
+
+## How to build and deploy?
+
+**Build and run with Docker**
+```sh
+#install dependencies and build the project
+npm install 
+npm run build
+
+#build a docker image
+docker build -t <YOUR_PROJECT_NAME> .
+
+#push the docker image to docker hub
+docker tag <YOUR_PROJECT_NAME> <YOUR_DOCKERHUB_USERNAME>/<YOUR_PROJECT_NAME>
+docker push <YOUR_DOCKERHUB_USERNAME>/<YOUR_PROJECT_NAME>
+newdockeruser123/cinesearch:1.0.2
+#run the docker image
+docker run -p 3000:80 <YOUR_PROJECT_NAME>  --name <CONTAINER_NAME>
+
+```
+
+**openshift**
+```sh
+#open shift deploy
+oc new-app <YOUR_DOCKERHUB_USERNAME>/<YOUR_PROJECT_NAME>
+oc expose svc/<YOUR_PROJECT_NAME>
+oc get routes
+
+```
+
+
 **Edit a file directly in GitHub**
 
 - Navigate to the desired file(s).

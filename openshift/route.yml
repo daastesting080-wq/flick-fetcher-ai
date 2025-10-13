@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: cinesearch-route
+  labels:
+    app: cinesearch
+spec:
+  to:
+    kind: Service
+    name: cinesearch-service   
+  port:
+    targetPort: http
+    name: http
