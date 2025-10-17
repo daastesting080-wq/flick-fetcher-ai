@@ -79,23 +79,9 @@ export const MovieSearch = () => {
     }
   };
 
-  const getVidsrcUrl = (movieId: number, options?: { autoplay?: boolean; ds_lang?: string; sub_url?: string }) => {
-    const baseUrl = `https://vidsrc.xyz/embed/movie?tmdb=${movieId}`;
-    const params = new URLSearchParams();
-
-    if (options?.autoplay !== undefined) {
-      params.append('autoplay', options.autoplay ? '1' : '0');
-    }
-
-    if (options?.ds_lang) {
-      params.append('ds_lang', options.ds_lang);
-    }
-
-    if (options?.sub_url) {
-      params.append('sub_url', encodeURIComponent(options.sub_url));
-    }
-
-    return `${baseUrl}&${params.toString()}`;
+  const getVidsrcUrl = (movieId: number) => {
+    // Using vidsrc.to which is more reliable
+    return `https://vidsrc.to/embed/movie/${movieId}`;
   };
 
   const playMovie = () => {
@@ -315,17 +301,18 @@ export const MovieSearch = () => {
                   {selectedMovie.title}
                 </h2>
                 <p className="text-muted-foreground">
-                  Powered by VidSrc • Multiple streaming sources available
+                  Streaming from multiple sources • Select your preferred quality
                 </p>
               </div>
 
               {/* Video Player */}
               <div className="aspect-video bg-black animate-fade-in [animation-delay:100ms]">
                 <iframe
-                  src={getVidsrcUrl(selectedMovie.id, { autoplay: true, ds_lang: 'en' })}
+                  src={getVidsrcUrl(selectedMovie.id)}
                   className="w-full h-full"
                   allowFullScreen
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="origin"
                   title={`Watch ${selectedMovie.title}`}
                 />
               </div>
