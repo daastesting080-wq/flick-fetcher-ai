@@ -114,28 +114,30 @@ export const MovieSearch = () => {
   }, [query]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-b from-background to-background/80">
       {/* Header */}
       <div className="cinema-gradient py-16 px-4">
         <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-4">
-            CineSearch
-          </h1>
-          <p className="text-xl text-primary-foreground/80 mb-8">
-            Discover your next favorite movie
-          </p>
-          
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto relative">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={20} />
-              <Input
-                type="text"
-                placeholder="Search for movies..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                className="pl-12 pr-4 py-3 text-lg bg-background/10 backdrop-blur-sm border-white/20 text-foreground placeholder:text-foreground/60"
-              />
+          <div className="glass-strong rounded-2xl p-8 max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-4">
+              CineSearch
+            </h1>
+            <p className="text-xl text-primary-foreground/80 mb-8">
+              Discover your next favorite movie
+            </p>
+            
+            {/* Search Bar */}
+            <div className="max-w-2xl mx-auto">
+              <div className="relative glass rounded-xl p-2">
+                <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-foreground/60" size={20} />
+                <Input
+                  type="text"
+                  placeholder="Search for movies..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="pl-14 pr-4 py-3 text-lg bg-transparent border-transparent focus:border-primary/30 text-foreground placeholder:text-foreground/60"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -155,7 +157,7 @@ export const MovieSearch = () => {
             {movies.map((movie) => (
               <div
                 key={movie.id}
-                className="movie-card cursor-pointer group"
+                className="movie-card cursor-pointer group glass"
                 onClick={() => getMovieDetails(movie.id)}
               >
                 <div className="aspect-[2/3] relative overflow-hidden">
@@ -204,13 +206,13 @@ export const MovieSearch = () => {
       {/* Movie Detail Modal */}
       {selectedMovie && (
         <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-card rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-slide-up">
+          <div className="glass-strong rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-slide-up shadow-glow">
             <div className="relative">
               {/* Close Button */}
               <Button
                 variant="ghost"
                 size="sm"
-                className="absolute top-4 right-4 z-10 bg-background/80 backdrop-blur-sm"
+                className="absolute top-4 right-4 z-10 glass"
                 onClick={() => setSelectedMovie(null)}
               >
                 ✕
@@ -287,13 +289,13 @@ export const MovieSearch = () => {
       {/* Video Player Modal */}
       {showVideoPlayer && selectedMovie && (
         <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-card rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden animate-slide-up">
+          <div className="glass-strong rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden animate-slide-up shadow-glow">
             <div className="relative">
               {/* Close Button */}
               <Button
                 variant="ghost"
                 size="sm"
-                className="absolute top-4 right-4 z-10 bg-background/80 backdrop-blur-sm"
+                className="absolute top-4 right-4 z-10 glass"
                 onClick={() => setShowVideoPlayer(false)}
               >
                 ✕

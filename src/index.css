@@ -60,6 +60,10 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Glassmorphism */
+    --glass-bg: 220 13% 12% / 0.7;
+    --glass-border: 220 13% 25% / 0.3;
   }
 
   .dark {
@@ -105,6 +109,10 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Dark mode glassmorphism */
+    --glass-bg: 220 13% 9% / 0.6;
+    --glass-border: 220 13% 30% / 0.2;
   }
 }
 
@@ -127,5 +135,19 @@ All colors MUST be HSL.
 
   .rating-gold {
     color: hsl(var(--rating-gold));
+  }
+
+  .glass {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--glass-border));
+  }
+
+  .glass-strong {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--glass-border));
   }
 }
