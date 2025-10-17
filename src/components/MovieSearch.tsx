@@ -128,7 +128,7 @@ export const MovieSearch = () => {
             
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto animate-fade-in [animation-delay:200ms]">
-              <div className="relative glass rounded-xl p-2 transition-all duration-300 hover:shadow-glow hover:scale-[1.02]">
+              <div className="relative glass-strong rounded-xl p-2 transition-all duration-300 hover:shadow-glow hover:scale-[1.02]">
                 <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-foreground/60 transition-all duration-300" size={20} />
                 <Input
                   type="text"
@@ -157,7 +157,7 @@ export const MovieSearch = () => {
             {movies.map((movie, index) => (
               <div
                 key={movie.id}
-                className="movie-card cursor-pointer group glass animate-fade-in hover:scale-105 transition-all duration-300"
+                className="movie-card cursor-pointer group glass-strong animate-fade-in hover:scale-105 transition-all duration-300"
                 style={{ animationDelay: `${index * 50}ms` }}
                 onClick={() => getMovieDetails(movie.id)}
               >
@@ -175,13 +175,15 @@ export const MovieSearch = () => {
                   )}
                   
                   {/* Play overlay on hover */}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <Play className="w-16 h-16 text-primary animate-scale-in" />
+                  <div className="absolute inset-0 glass-strong opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="glass-strong rounded-full p-4">
+                      <Play className="w-16 h-16 text-primary animate-scale-in fill-primary" />
+                    </div>
                   </div>
                   
                   {/* Rating Badge */}
                   {movie.vote_average > 0 && (
-                    <div className="absolute top-2 right-2 bg-background/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1 transition-all duration-300 group-hover:scale-110 group-hover:shadow-glow">
+                    <div className="absolute top-2 right-2 glass-strong rounded-full px-2 py-1 flex items-center gap-1 transition-all duration-300 group-hover:scale-110 group-hover:shadow-glow">
                       <Star className="w-3 h-3 fill-rating-gold text-rating-gold transition-transform duration-300 group-hover:rotate-12" />
                       <span className="text-xs font-medium">{movie.vote_average.toFixed(1)}</span>
                     </div>
@@ -211,8 +213,8 @@ export const MovieSearch = () => {
 
       {/* Movie Detail Modal */}
       {selectedMovie && (
-        <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="glass-strong rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scale-in shadow-glow">
+        <div className="fixed inset-0 glass-strong z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="glass-strong rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scale-in shadow-glow border-2 border-primary/20">
             <div className="relative">
               {/* Close Button */}
               <Button
@@ -294,8 +296,8 @@ export const MovieSearch = () => {
 
       {/* Video Player Modal */}
       {showVideoPlayer && selectedMovie && (
-        <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="glass-strong rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden animate-scale-in shadow-glow">
+        <div className="fixed inset-0 glass-strong z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="glass-strong rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden animate-scale-in shadow-glow border-2 border-primary/20">
             <div className="relative">
               {/* Close Button */}
               <Button
