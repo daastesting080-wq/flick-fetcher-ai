@@ -34,16 +34,18 @@ const MoviePlayer: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black">
-      <h1 className="text-white text-2xl mb-4">Now Playing</h1>
-      <div className="aspect-video w-full max-w-4xl">
-        <ReactPlayer
-          url={getVidsrcUrl()}
-          controls
-          playing={autoplay}
-          width="100%"
-          height="100%"
-        />
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-background to-background/80 p-4">
+      <div className="glass-strong rounded-2xl p-6 w-full max-w-6xl">
+        <h1 className="text-foreground text-2xl mb-4 font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">Now Playing</h1>
+        <div className="aspect-video w-full glass rounded-xl overflow-hidden">
+          <iframe
+            src={getVidsrcUrl()}
+            width="100%"
+            height="100%"
+            allowFullScreen
+            className="w-full h-full"
+          />
+        </div>
       </div>
     </div>
   );
