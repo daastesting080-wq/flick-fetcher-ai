@@ -1,6 +1,6 @@
-# FROM nginx:stable-perl
+FROM nginx:alpine
 # important for openshift
-FROM registry.access.redhat.com/ubi9/nginx-120
+# FROM registry.access.redhat.com/ubi9/nginx-120
 
 # copy custom nginx config
 COPY nginx.conf /etc/nginx/nginx.conf

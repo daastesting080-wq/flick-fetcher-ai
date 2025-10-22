@@ -6,12 +6,12 @@ metadata:
   labels:
     app: cinesearch
   name: cinesearch
-spec: 
+spec: #pode
   replicas: 1
   selector: 
     matchLabels:
       app: cinesearch
-  template:
+  template: # docker image 
     metadata:
       labels:
         app: cinesearch

@@ -60,6 +60,7 @@ docker run -p 3000:80 <YOUR_PROJECT_NAME>  --name <CONTAINER_NAME>
 **openshift**
 ```sh
 #open shift deploy
+oc login --token=sha256~BxytCSKGiYnFcaGkChxiASL_kx_TGcPQr5mrjGC5zGE --server=https://api.rm2.thpm.p1.openshiftapps.com:6443
 oc new-app <YOUR_DOCKERHUB_USERNAME>/<YOUR_PROJECT_NAME>
 oc expose svc/<YOUR_PROJECT_NAME>
 oc get routes
